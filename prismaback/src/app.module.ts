@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { appConfig, dataConfig, smtpConfig } from './config/app.config';
 import validationSchema from './config/valivation.config';
 import { DatabaseModule } from './infastructure/database/database.module';
+import { SmtpModule } from './infastructure/smtp/smtp.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { DatabaseModule } from './infastructure/database/database.module';
       load: [appConfig, dataConfig, smtpConfig],
       validationOptions: validationSchema,
     }),
+    SmtpModule,
     DatabaseModule,
   ],
 })
