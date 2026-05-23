@@ -1,0 +1,99 @@
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
+import { CreatePersonDto } from './dto/create-person.dto';
+import { UpdatePersonDto } from './dto/update-person.dto';
+import { QueryPersonDto } from './dto/query-person.dto';
+import * as bcrypt from 'bcrypt';
+import * as path from 'path';
+import * as fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
+import { PersonsRepository } from './persons.repository';
+import { Person, Prisma } from 'generated/prisma/browser';
+
+const SALT_ROUNDS = 12;
+const UPLOAD_DIR = 'uploads/persons';
+
+@Injectable()
+export class PersonsService {
+  constructor(private readonly personsRepository: PersonsRepository) {}
+
+  async create(
+    dto: CreatePersonDto,
+    file?: Express.Multer.File,
+  ): Promise<Person> {
+    const existing = await this.personsRepository.findByEmail(dto.email);
+    if (existing) throw new ConflictException('Email already in use');
+
+    const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
+    const image = file ? this.saveImage(file) : null;
+
+    return this.personsRepository.create({
+      name: dto.name,
+      email: dto.email,
+      password,
+      dateOfBirth: new Date(dto.dateOfBirth),
+      addresses: dto.addresses as unknown as Prisma.InputJsonValue,
+      image,
+    });
+  }
+
+  async findAll(query: QueryPersonDto): Promise<{
+    data: Person[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    const [data, total] = await this.personsRepository.findAll(query);
+    return { data, total, page: query.page ?? 1, limit: query.limit ?? 10 };
+  }
+
+  async findOne(id: string): Promise<Person> {
+    const person = await this.personsRepository.findById(id);
+    if (!person) throw new NotFoundException(`Person ${id} not found`);
+    return person;
+  }
+
+  async update(
+    id: string,
+    dto: UpdatePersonDto,
+    file?: Express.Multer.File,
+  ): Promise<Person> {
+    await this.findOne(id);
+
+    const data: Record<string, unknown> = {};
+
+    if (dto.name) data.name = dto.name;
+    if (dto.email) data.email = dto.email;
+    if (dto.addresses) data.addresses = dto.addresses;
+    if (dto.password) {
+      data.password = await bcrypt.hash(dto.password as string, SALT_ROUNDS);
+    }
+    if (dto.dateOfBirth) {
+      data.dateOfBirth = new Date(dto.dateOfBirth as string);
+    }
+    if (file) {
+      data.image = this.saveImage(file);
+    }
+
+    return this.personsRepository.update(id, data);
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.findOne(id);
+    await this.personsRepository.remove(id);
+  }
+
+  private saveImage(file: Express.Multer.File): string {
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    }
+    const ext = path.extname(file.originalname);
+    const filename = `${uuidv4()}${ext}`;
+    const filepath = path.join(UPLOAD_DIR, filename);
+    fs.writeFileSync(filepath, file.buffer);
+    return filepath;
+  }
+}

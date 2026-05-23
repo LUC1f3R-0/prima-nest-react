@@ -13,10 +13,16 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-id Int @id @default(autoincrement())
-email String @unique
-password  String
-name String?
-createdAt DateTime @default(now())
+model Person {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  password    String
+  dateOfBirth DateTime  @db.Date
+  addresses   Json      @default("[]")
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("persons")
 }

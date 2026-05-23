@@ -5,6 +5,8 @@ import validationSchema from './config/valivation.config';
 import { DatabaseModule } from './infastructure/database/database.module';
 import { SmtpModule } from './infastructure/smtp/smtp.module';
 import { CorsConfig } from './common/cors/cors.config';
+import { PersonsModule } from './modules/persons/persons.module';
+import { HealthModule } from './health/indicators/health.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { CorsConfig } from './common/cors/cors.config';
     }),
     SmtpModule,
     DatabaseModule,
+    HealthModule,
+    PersonsModule,
   ],
   providers: [CorsConfig],
 })
