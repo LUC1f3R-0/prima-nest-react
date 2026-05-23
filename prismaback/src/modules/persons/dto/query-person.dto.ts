@@ -1,7 +1,7 @@
 import { IsOptional, IsString, IsInt, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class QueryPersonDto {
+class QueryPersonDto {
   @IsOptional()
   @IsString()
   search?: string;
@@ -18,3 +18,5 @@ export class QueryPersonDto {
   @Min(1)
   limit?: number = 10;
 }
+
+export { QueryPersonDto };

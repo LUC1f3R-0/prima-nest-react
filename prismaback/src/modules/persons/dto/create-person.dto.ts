@@ -10,7 +10,7 @@ import {
 import { Type } from 'class-transformer';
 import { AddressDto } from './address.dto';
 
-export class CreatePersonDto {
+class CreatePersonDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -31,3 +31,5 @@ export class CreatePersonDto {
   @Type(() => AddressDto)
   addresses: AddressDto[];
 }
+
+export { CreatePersonDto };

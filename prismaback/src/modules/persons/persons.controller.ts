@@ -1,17 +1,14 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
   Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Query,
   UploadedFile,
   UseInterceptors,
-  ParseUUIDPipe,
-  HttpCode,
-  HttpStatus,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PersonsService } from './persons.service';
@@ -38,23 +35,31 @@ export class PersonsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  findOne(@Param('id') id: string) {
     return this.personsService.findOne(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
   update(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('id') id: string,
     @Body() dto: UpdatePersonDto,
     @UploadedFile() file?: Express.Multer.File,
   ) {
     return this.personsService.update(id, dto, file);
   }
 
+  @Patch(':id/image')
+  @UseInterceptors(FileInterceptor('image'))
+  updateImage(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.personsService.updateImage(id, file);
+  }
+
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id', ParseUUIDPipe) id: string) {
+  remove(@Param('id') id: string) {
     return this.personsService.remove(id);
   }
 }

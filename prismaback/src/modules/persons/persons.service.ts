@@ -6,15 +6,15 @@ import {
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { QueryPersonDto } from './dto/query-person.dto';
+import { PersonsRepository } from './persons.repository';
 import * as bcrypt from 'bcrypt';
 import * as path from 'path';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import { PersonsRepository } from './persons.repository';
 import { Person, Prisma } from 'generated/prisma/browser';
 
 const SALT_ROUNDS = 12;
-const UPLOAD_DIR = 'uploads/persons';
+const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'persons');
 
 @Injectable()
 export class PersonsService {
@@ -25,7 +25,10 @@ export class PersonsService {
     file?: Express.Multer.File,
   ): Promise<Person> {
     const existing = await this.personsRepository.findByEmail(dto.email);
-    if (existing) throw new ConflictException('Email already in use');
+
+    if (existing) {
+      throw new ConflictException('Email already in use');
+    }
 
     const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
     const image = file ? this.saveImage(file) : null;
@@ -47,12 +50,22 @@ export class PersonsService {
     limit: number;
   }> {
     const [data, total] = await this.personsRepository.findAll(query);
-    return { data, total, page: query.page ?? 1, limit: query.limit ?? 10 };
+
+    return {
+      data,
+      total,
+      page: query.page ?? 1,
+      limit: query.limit ?? 10,
+    };
   }
 
   async findOne(id: string): Promise<Person> {
     const person = await this.personsRepository.findById(id);
-    if (!person) throw new NotFoundException(`Person ${id} not found`);
+
+    if (!person) {
+      throw new NotFoundException(`Person ${id} not found`);
+    }
+
     return person;
   }
 
@@ -63,17 +76,34 @@ export class PersonsService {
   ): Promise<Person> {
     await this.findOne(id);
 
-    const data: Record<string, unknown> = {};
+    const data: Prisma.PersonUpdateInput = {};
 
-    if (dto.name) data.name = dto.name;
-    if (dto.email) data.email = dto.email;
-    if (dto.addresses) data.addresses = dto.addresses;
-    if (dto.password) {
-      data.password = await bcrypt.hash(dto.password as string, SALT_ROUNDS);
+    if (dto.name !== undefined) {
+      data.name = dto.name;
     }
-    if (dto.dateOfBirth) {
-      data.dateOfBirth = new Date(dto.dateOfBirth as string);
+
+    if (dto.email !== undefined) {
+      const existing = await this.personsRepository.findByEmail(dto.email);
+
+      if (existing && existing.id !== id) {
+        throw new ConflictException('Email already in use');
+      }
+
+      data.email = dto.email;
     }
+
+    if (dto.addresses !== undefined) {
+      data.addresses = dto.addresses as unknown as Prisma.InputJsonValue;
+    }
+
+    if (dto.password !== undefined) {
+      data.password = await bcrypt.hash(dto.password, SALT_ROUNDS);
+    }
+
+    if (dto.dateOfBirth !== undefined) {
+      data.dateOfBirth = new Date(dto.dateOfBirth);
+    }
+
     if (file) {
       data.image = this.saveImage(file);
     }
@@ -81,8 +111,17 @@ export class PersonsService {
     return this.personsRepository.update(id, data);
   }
 
+  async updateImage(id: string, file: Express.Multer.File): Promise<Person> {
+    await this.findOne(id);
+
+    const image = this.saveImage(file);
+
+    return this.personsRepository.update(id, { image });
+  }
+
   async remove(id: string): Promise<void> {
     await this.findOne(id);
+
     await this.personsRepository.remove(id);
   }
 
@@ -90,10 +129,13 @@ export class PersonsService {
     if (!fs.existsSync(UPLOAD_DIR)) {
       fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     }
+
     const ext = path.extname(file.originalname);
     const filename = `${uuidv4()}${ext}`;
     const filepath = path.join(UPLOAD_DIR, filename);
+
     fs.writeFileSync(filepath, file.buffer);
-    return filepath;
+
+    return path.join('uploads', 'persons', filename);
   }
 }
