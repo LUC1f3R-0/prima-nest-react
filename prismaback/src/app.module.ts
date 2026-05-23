@@ -4,6 +4,7 @@ import { appConfig, dataConfig, smtpConfig } from './config/app.config';
 import validationSchema from './config/valivation.config';
 import { DatabaseModule } from './infastructure/database/database.module';
 import { SmtpModule } from './infastructure/smtp/smtp.module';
+import { CorsConfig } from './common/cors/cors.config';
 
 @Module({
   imports: [
@@ -15,5 +16,6 @@ import { SmtpModule } from './infastructure/smtp/smtp.module';
     SmtpModule,
     DatabaseModule,
   ],
+  providers: [CorsConfig],
 })
 export class AppModule {}

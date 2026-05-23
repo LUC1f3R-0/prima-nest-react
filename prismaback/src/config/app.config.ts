@@ -2,6 +2,9 @@ import { registerAs } from '@nestjs/config';
 
 export const appConfig = registerAs('app', () => ({
   port: parseInt(process.env.PORT ?? '3000', 10),
+  cors: {
+    origins: process.env.CORS_ORIGINS?.split(',').map((o) => o.trim()) ?? [],
+  },
 }));
 
 export const dataConfig = registerAs('database', () => ({

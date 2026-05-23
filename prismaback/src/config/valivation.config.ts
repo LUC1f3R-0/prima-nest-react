@@ -10,6 +10,10 @@ const validationSchema = Joi.object({
   DB_NAME: Joi.string().trim().required(),
   DB_SSL: Joi.boolean().truthy('true').falsy('false').default(true),
   DB_LOGG: Joi.boolean().truthy('true').falsy('false').default(false),
+
+  CORS_ORIGINS: Joi.string()
+    .pattern(/^https?:\/\/[^\s,]+(,https?:\/\/[^\s,]+)*$/)
+    .required(),
 });
 
 export default validationSchema;
