@@ -11,7 +11,7 @@ import * as bcrypt from 'bcrypt';
 import * as path from 'path';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import { Person, Prisma } from 'generated/prisma/browser';
+import { Person, Prisma } from 'generated/prisma/client';
 
 const SALT_ROUNDS = 12;
 const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'persons');
@@ -54,12 +54,12 @@ export class PersonsService {
     return {
       data,
       total,
-      page: query.page ?? 1,
-      limit: query.limit ?? 10,
+      page: Number(query.page ?? 1),
+      limit: Number(query.limit ?? 10),
     };
   }
 
-  async findOne(id: string): Promise<Person> {
+  async findOne(id: number): Promise<Person> {
     const person = await this.personsRepository.findById(id);
 
     if (!person) {
@@ -70,7 +70,7 @@ export class PersonsService {
   }
 
   async update(
-    id: string,
+    id: number,
     dto: UpdatePersonDto,
     file?: Express.Multer.File,
   ): Promise<Person> {
@@ -111,15 +111,17 @@ export class PersonsService {
     return this.personsRepository.update(id, data);
   }
 
-  async updateImage(id: string, file: Express.Multer.File): Promise<Person> {
+  async updateImage(id: number, file: Express.Multer.File): Promise<Person> {
     await this.findOne(id);
 
     const image = this.saveImage(file);
 
-    return this.personsRepository.update(id, { image });
+    return this.personsRepository.update(id, {
+      image,
+    });
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.findOne(id);
 
     await this.personsRepository.remove(id);
@@ -127,7 +129,9 @@ export class PersonsService {
 
   private saveImage(file: Express.Multer.File): string {
     if (!fs.existsSync(UPLOAD_DIR)) {
-      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+      fs.mkdirSync(UPLOAD_DIR, {
+        recursive: true,
+      });
     }
 
     const ext = path.extname(file.originalname);

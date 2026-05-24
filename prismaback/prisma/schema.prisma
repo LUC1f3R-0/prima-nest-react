@@ -14,15 +14,16 @@ datasource db {
 }
 
 model Person {
-  id          String    @id @default(uuid())
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique @default(uuid())
   name        String
-  email       String    @unique
+  email       String   @unique
   password    String
-  dateOfBirth DateTime  @db.Date
-  addresses   Json      @default("[]")
+  dateOfBirth DateTime @db.Date
+  addresses   Json     @default("[]")
   image       String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("persons")
 }
