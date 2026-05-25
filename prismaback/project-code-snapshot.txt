@@ -1,0 +1,1709 @@
+PROJECT CODE SNAPSHOT
+Generated at: Mon May 25 01:50:59 PM +0530 2026
+Project root: /media/luc1f3r/drkdv_6661/my-experiments/node/testOne/backend2/prismaback
+
+==============================
+PROJECT TREE
+==============================
+.
+./api-tests
+./api-tests/create.json
+./api-tests/get-all.json
+./api-tests/get-one.json
+./api-tests/search.json
+./collect-code.sh
+./.env
+./eslint.config.mjs
+./.gitignore
+./nest-cli.json
+./package.json
+./package-lock.json
+./.prettierrc
+./prisma
+./prisma.config.ts
+./prisma/migrations
+./prisma/migrations/20260521142058_init
+./prisma/migrations/20260521142058_init/migration.sql
+./prisma/migrations/20260521142234_init
+./prisma/migrations/20260521142234_init/migration.sql
+./prisma/migrations/20260523142914_create_persons
+./prisma/migrations/20260523142914_create_persons/migration.sql
+./prisma/migrations/20260524110510_add_increment_id
+./prisma/migrations/20260524110510_add_increment_id/migration.sql
+./prisma/migrations/migration_lock.toml
+./prisma/schema.prisma
+./project-code-snapshot.txt
+./README.md
+./src
+./src/app.controller.spec.ts
+./src/app.controller.ts
+./src/app.module.ts
+./src/app.service.ts
+./src/bootstrap.ts
+./src/common
+./src/common/common.module.ts
+./src/common/cors
+./src/common/cors/cors.config.ts
+./src/common/decorators
+./src/common/filters
+./src/common/filters/http-exception.filter.ts
+./src/common/guards
+./src/common/guards/headers-validation.guard.ts
+./src/common/interceptors
+./src/common/interceptors/logging.interceptor.ts
+./src/common/interceptors/request-headers.interceptor.ts
+./src/common/interceptors/response-transform.interceptor.ts
+./src/common/middleware
+./src/common/pipes
+./src/common/utils
+./src/config
+./src/config/app.config.ts
+./src/config/valivation.config.ts
+./src/health
+./src/health/health.controller.ts
+./src/health/health.service.ts
+./src/health/indicators
+./src/health/indicators/database.health.indicator.ts
+./src/health/indicators/health.module.ts
+./src/health/indicators/smtp.health.indicator.ts
+./src/infastructure
+./src/infastructure/database
+./src/infastructure/database/database.module.ts
+./src/infastructure/database/database-status.service.ts
+./src/infastructure/database/prisma.service.ts
+./src/infastructure/smtp
+./src/infastructure/smtp/smtp.module.ts
+./src/infastructure/smtp/smtp.service.ts
+./src/infastructure/smtp/smtp-status.service.ts
+./src/main.ts
+./src/modules
+./src/modules/persons
+./src/modules/persons/dto
+./src/modules/persons/dto/address.dto.ts
+./src/modules/persons/dto/create-person.dto.ts
+./src/modules/persons/dto/query-person.dto.ts
+./src/modules/persons/dto/update-person.dto.ts
+./src/modules/persons/persons.controller.ts
+./src/modules/persons/persons.module.ts
+./src/modules/persons/persons.repository.ts
+./src/modules/persons/persons.service.ts
+./test
+./test/app.e2e-spec.ts
+./test/jest-e2e.json
+./tsconfig.build.json
+./tsconfig.json
+
+==============================
+FILE CONTENTS
+==============================
+
+--------------------------------------------------
+FILE: ./api-tests/create.json
+--------------------------------------------------
+{"success":true,"data":{"id":"afeaa6ea-a8b5-411c-9517-1b0463440723","name":"Test User","email":"test-1779613961@example.com","password":"$2b$12$rRNAs9mxnA28K8hEq7b5P.VVuaf6udbHnrsVQK8I8PvBK1r7u33Ou","dateOfBirth":"2000-01-01T00:00:00.000Z","addresses":[{"city":"Test City","street":"Test St","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-24T09:12:41.958Z","updatedAt":"2026-05-24T09:12:41.958Z"},"requestId":"f3a4af97-34d6-4334-88b8-dca3b15edd96","timestamp":"2026-05-24T09:12:41.963Z"}
+HTTP Status: 201
+Time: 0.195908s
+
+
+--------------------------------------------------
+FILE: ./api-tests/get-all.json
+--------------------------------------------------
+{"success":true,"data":{"data":[{"id":"f200ae92-9221-40df-9023-6720ba64c07c","name":"Jane Smith","email":"jane@example.com","password":"$2b$12$8lSJVhHzQh3CheG3thK7G..9SVe8eBeklYwHFhwKeLNfGTIXoalra","dateOfBirth":"1995-08-20T00:00:00.000Z","addresses":[{"city":"Galle","street":"789 Beach Rd","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-24T09:12:19.778Z","updatedAt":"2026-05-24T09:12:19.778Z"},{"id":"ebd8f5e9-7148-4d33-986e-89be08931a2b","name":"John Updated","email":"john@example.com","password":"$2b$12$2COzXp7fbROvmSGi5eg/xeE43jBOTC8vfNFMKI1U/Lo1eNRCGBvC2","dateOfBirth":"1990-05-15T00:00:00.000Z","addresses":[{"city":"Colombo","street":"123 Main St","country":"Sri Lanka"},{"city":"Kandy","street":"456 Lake Rd","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-23T15:52:33.087Z","updatedAt":"2026-05-24T09:12:26.793Z"}],"total":2,"page":1,"limit":10},"requestId":"7846717f-c3fa-474f-a1df-83174b1b4084","timestamp":"2026-05-24T09:12:41.732Z"}
+HTTP Status: 200
+Time: 0.014055s
+
+
+--------------------------------------------------
+FILE: ./api-tests/get-one.json
+--------------------------------------------------
+{"success":true,"data":{"id":"ebd8f5e9-7148-4d33-986e-89be08931a2b","name":"John Updated","email":"john@example.com","password":"$2b$12$2COzXp7fbROvmSGi5eg/xeE43jBOTC8vfNFMKI1U/Lo1eNRCGBvC2","dateOfBirth":"1990-05-15T00:00:00.000Z","addresses":[{"city":"Colombo","street":"123 Main St","country":"Sri Lanka"},{"city":"Kandy","street":"456 Lake Rd","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-23T15:52:33.087Z","updatedAt":"2026-05-24T09:12:26.793Z"},"requestId":"8cc2219a-d92a-47e5-9f73-f201a925970e","timestamp":"2026-05-24T09:12:41.741Z"}
+HTTP Status: 200
+Time: 0.002259s
+
+
+--------------------------------------------------
+FILE: ./api-tests/search.json
+--------------------------------------------------
+{"success":true,"data":{"data":[{"id":"ebd8f5e9-7148-4d33-986e-89be08931a2b","name":"John Updated","email":"john@example.com","password":"$2b$12$2COzXp7fbROvmSGi5eg/xeE43jBOTC8vfNFMKI1U/Lo1eNRCGBvC2","dateOfBirth":"1990-05-15T00:00:00.000Z","addresses":[{"city":"Colombo","street":"123 Main St","country":"Sri Lanka"},{"city":"Kandy","street":"456 Lake Rd","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-23T15:52:33.087Z","updatedAt":"2026-05-24T09:12:26.793Z"}],"total":1,"page":1,"limit":10},"requestId":"85604c0d-35a4-4b3f-9867-331eb1ebc3ae","timestamp":"2026-05-24T09:12:41.754Z"}
+HTTP Status: 200
+Time: 0.004122s
+
+
+--------------------------------------------------
+FILE: ./dist
+--------------------------------------------------
+
+
+--------------------------------------------------
+FILE: ./generated
+--------------------------------------------------
+
+
+--------------------------------------------------
+FILE: ./nest-cli.json
+--------------------------------------------------
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./node_modules
+--------------------------------------------------
+
+
+--------------------------------------------------
+FILE: ./package.json
+--------------------------------------------------
+{
+  "name": "prismaback",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:migrate:reset": "prisma migrate reset"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "^2.1.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/terminus": "^11.1.1",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "joi": "^18.2.1",
+    "nodemailer": "^8.0.7",
+    "pg": "^8.21.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^24.0.0",
+    "@types/nodemailer": "^8.0.0",
+    "@types/supertest": "^7.0.0",
+    "@types/uuid": "^10.0.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^17.0.0",
+    "jest": "^30.0.0",
+    "prettier": "^3.4.2",
+    "prisma": "^7.8.0",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./prisma.config.ts
+--------------------------------------------------
+// This file was generated by Prisma, and assumes you have installed the following:
+// npm install --save-dev prisma dotenv
+import "dotenv/config";
+import { defineConfig } from "prisma/config";
+
+export default defineConfig({
+  schema: "prisma/schema.prisma",
+  migrations: {
+    path: "prisma/migrations",
+  },
+  datasource: {
+    url: process.env["DATABASE_URL"],
+  },
+});
+
+
+--------------------------------------------------
+FILE: ./prisma/schema.prisma
+--------------------------------------------------
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Person {
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  dateOfBirth DateTime @db.Date
+  addresses   Json     @default("[]")
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("persons")
+}
+
+--------------------------------------------------
+FILE: ./README.md
+--------------------------------------------------
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+## Description
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Project setup
+
+```bash
+$ npm install
+```
+
+## Compile and run the project
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Run tests
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Deployment
+
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
+
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+
+## Resources
+
+Check out a few resources that may come in handy when working with NestJS:
+
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+--------------------------------------------------
+FILE: ./src/app.controller.spec.ts
+--------------------------------------------------
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+describe('AppController', () => {
+  let appController: AppController;
+
+  beforeEach(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [AppController],
+      providers: [AppService],
+    }).compile();
+
+    appController = app.get<AppController>(AppController);
+  });
+
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
+  });
+});
+
+
+--------------------------------------------------
+FILE: ./src/app.controller.ts
+--------------------------------------------------
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/app.module.ts
+--------------------------------------------------
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { appConfig, dataConfig, smtpConfig } from './config/app.config';
+import validationSchema from './config/valivation.config';
+import { DatabaseModule } from './infastructure/database/database.module';
+import { SmtpModule } from './infastructure/smtp/smtp.module';
+import { CorsConfig } from './common/cors/cors.config';
+import { PersonsModule } from './modules/persons/persons.module';
+import { HealthModule } from './health/indicators/health.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [appConfig, dataConfig, smtpConfig],
+      validationOptions: validationSchema,
+    }),
+    SmtpModule,
+    DatabaseModule,
+    HealthModule,
+    PersonsModule,
+  ],
+  providers: [CorsConfig],
+})
+export class AppModule {}
+
+
+--------------------------------------------------
+FILE: ./src/app.service.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class AppService {
+  getHello(): string {
+    return 'Hello World!';
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/bootstrap.ts
+--------------------------------------------------
+import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { HeadersValidationGuard } from './common/guards/headers-validation.guard';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+
+const setupApp = (app: INestApplication): void => {
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
+  // Validate required headers
+  app.useGlobalGuards(new HeadersValidationGuard());
+
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new ResponseTransformInterceptor(),
+  );
+};
+
+export default setupApp;
+
+
+--------------------------------------------------
+FILE: ./src/common/common.module.ts
+--------------------------------------------------
+
+
+--------------------------------------------------
+FILE: ./src/common/cors/cors.config.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { ConfigService } from '@nestjs/config';
+
+@Injectable()
+class CorsConfig {
+  constructor(private readonly configService: ConfigService) {}
+
+  get options(): CorsOptions {
+    return {
+      origin: this.configService.getOrThrow<string[]>('app.cors.origins'),
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: [
+        'Content-Type',
+        'Accept',
+        'X-Request-Id',
+        'Idempotency-Key',
+      ],
+      exposedHeaders: ['X-Request-Id'],
+      credentials: false,
+      maxAge: 86400,
+    };
+  }
+}
+
+export { CorsConfig };
+
+
+--------------------------------------------------
+FILE: ./src/common/filters/http-exception.filter.ts
+--------------------------------------------------
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
+
+@Catch(HttpException)
+class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost): void {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+
+    const status = exception.getStatus();
+    const exceptionResponse = exception.getResponse();
+
+    const message =
+      typeof exceptionResponse === 'object' && 'message' in exceptionResponse
+        ? (exceptionResponse as Record<string, unknown>).message
+        : exceptionResponse;
+
+    response.status(status).json({
+      success: false,
+      statusCode: status,
+      message,
+      requestId: request.headers['x-request-id'] ?? null,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    });
+  }
+}
+
+export { HttpExceptionFilter };
+
+
+--------------------------------------------------
+FILE: ./src/common/guards/headers-validation.guard.ts
+--------------------------------------------------
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  BadRequestException,
+} from '@nestjs/common';
+import { Request } from 'express';
+import { validate as isUuid } from 'uuid';
+
+const MUTATING_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
+
+@Injectable()
+export class HeadersValidationGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest<Request>();
+
+    const requestId = request.headers['x-request-id'];
+    const idempotencyKey = request.headers['idempotency-key'];
+
+    if (typeof requestId !== 'string' || !isUuid(requestId)) {
+      throw new BadRequestException('Valid X-Request-Id header is required');
+    }
+
+    if (MUTATING_METHODS.includes(request.method.toUpperCase())) {
+      if (typeof idempotencyKey !== 'string' || !isUuid(idempotencyKey)) {
+        throw new BadRequestException(
+          `Valid Idempotency-Key header is required for ${request.method.toUpperCase()} requests`,
+        );
+      }
+    }
+
+    return true;
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/common/interceptors/logging.interceptor.ts
+--------------------------------------------------
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+  Logger,
+} from '@nestjs/common';
+import { Observable, tap } from 'rxjs';
+import { Request } from 'express';
+
+@Injectable()
+class LoggingInterceptor implements NestInterceptor {
+  private readonly logger = new Logger(LoggingInterceptor.name);
+
+  intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
+    const request = context.switchToHttp().getRequest<Request>();
+    const { method, url, headers } = request;
+    const requestId = (headers['x-request-id'] as string) ?? 'no-request-id';
+    const start = Date.now();
+
+    this.logger.log(`→ ${method} ${url} [${requestId}]`);
+
+    return next.handle().pipe(
+      tap(() => {
+        const duration = Date.now() - start;
+        this.logger.log(`← ${method} ${url} [${requestId}] +${duration}ms`);
+      }),
+    );
+  }
+}
+
+export { LoggingInterceptor };
+
+
+--------------------------------------------------
+FILE: ./src/common/interceptors/request-headers.interceptor.ts
+--------------------------------------------------
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { randomUUID } from 'crypto';
+import { Request, Response } from 'express';
+
+@Injectable()
+class RequestHeadersInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest<Request>();
+    const response = context.switchToHttp().getResponse<Response>();
+
+    // Auto-generate X-Request-Id if missing
+    if (!request.headers['x-request-id']) {
+      request.headers['x-request-id'] = randomUUID();
+    }
+
+    // Auto-generate Idempotency-Key for mutating operations if missing
+    const method = request.method.toLowerCase();
+    if (['post', 'put', 'patch', 'delete'].includes(method)) {
+      if (!request.headers['idempotency-key']) {
+        request.headers['idempotency-key'] = randomUUID();
+      }
+    }
+
+    // Expose X-Request-Id in response headers
+    response.setHeader('X-Request-Id', request.headers['x-request-id']);
+
+    return next.handle();
+  }
+}
+
+export { RequestHeadersInterceptor };
+
+
+--------------------------------------------------
+FILE: ./src/common/interceptors/response-transform.interceptor.ts
+--------------------------------------------------
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from '@nestjs/common';
+import { Observable, map } from 'rxjs';
+import { Request } from 'express';
+
+type ControllerResponse<T> = {
+  message?: string;
+  data?: T;
+};
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T | null;
+  requestId: string | null;
+  timestamp: string;
+}
+
+@Injectable()
+class ResponseTransformInterceptor<T> implements NestInterceptor<
+  T | ControllerResponse<T>,
+  ApiResponse<T>
+> {
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler<T | ControllerResponse<T>>,
+  ): Observable<ApiResponse<T>> {
+    const request = context.switchToHttp().getRequest<Request>();
+    const requestId = (request.headers['x-request-id'] as string) ?? null;
+
+    return next.handle().pipe(
+      map((response) => {
+        const isCustomResponse =
+          response &&
+          typeof response === 'object' &&
+          'message' in response &&
+          'data' in response;
+
+        return {
+          success: true,
+          message: isCustomResponse
+            ? String((response as ControllerResponse<T>).message)
+            : 'Request successful',
+          data: isCustomResponse
+            ? ((response as ControllerResponse<T>).data ?? null)
+            : (response as T),
+          requestId,
+          timestamp: new Date().toISOString(),
+        };
+      }),
+    );
+  }
+}
+
+export { ResponseTransformInterceptor };
+
+
+--------------------------------------------------
+FILE: ./src/config/app.config.ts
+--------------------------------------------------
+import { registerAs } from '@nestjs/config';
+
+export const appConfig = registerAs('app', () => ({
+  port: parseInt(process.env.PORT ?? '3000', 10),
+  cors: {
+    origins: process.env.CORS_ORIGINS?.split(',').map((o) => o.trim()) ?? [],
+  },
+}));
+
+export const dataConfig = registerAs('database', () => ({
+  url: process.env.DATABASE_URL,
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT ?? '5432', 10),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  name: process.env.DB_NAME,
+  ssl: process.env.DB_SSL === 'true',
+  logging: process.env.DB_LOGGING === 'true',
+}));
+
+export const smtpConfig = registerAs('smtp', () => ({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE === 'true',
+  user: process.env.SMTP_USER,
+  password: process.env.SMTP_PASS,
+}));
+
+
+--------------------------------------------------
+FILE: ./src/config/valivation.config.ts
+--------------------------------------------------
+import Joi from 'joi';
+
+const validationSchema = Joi.object({
+  PORT: Joi.number().port().default(3000),
+
+  HOST: Joi.string(),
+  DB_PORT: Joi.number().port().default(5432),
+  DB_USERNAME: Joi.string().trim().required(),
+  DB_PASSWORD: Joi.string().trim().required(),
+  DB_NAME: Joi.string().trim().required(),
+  DB_SSL: Joi.boolean().truthy('true').falsy('false').default(true),
+  DB_LOGG: Joi.boolean().truthy('true').falsy('false').default(false),
+
+  CORS_ORIGINS: Joi.string()
+    .pattern(/^https?:\/\/[^\s,]+(,https?:\/\/[^\s,]+)*$/)
+    .required(),
+});
+
+export default validationSchema;
+
+
+--------------------------------------------------
+FILE: ./src/health/health.controller.ts
+--------------------------------------------------
+import { Controller, Get } from '@nestjs/common';
+import {
+  HealthCheck,
+  HealthCheckService,
+  PrismaHealthIndicator,
+} from '@nestjs/terminus';
+import { HealthService } from './health.service';
+
+@Controller('health')
+export class HealthController {
+  constructor(private readonly healthService: HealthService) {}
+
+  @Get()
+  @HealthCheck()
+  check() {
+    return this.healthService.check();
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/health/health.service.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+import { HealthCheckService, HealthCheckResult } from '@nestjs/terminus';
+import { DatabaseHealthIndicator } from './indicators/database.health.indicator';
+import { SmtpHealthIndicator } from './indicators/smtp.health.indicator';
+
+@Injectable()
+export class HealthService {
+  constructor(
+    private readonly health: HealthCheckService,
+    private readonly databaseIndicator: DatabaseHealthIndicator,
+    private readonly smtpIndicator: SmtpHealthIndicator,
+  ) {}
+
+  check(): Promise<HealthCheckResult> {
+    return this.health.check([
+      () => this.databaseIndicator.isHealthy('database'),
+      () => this.smtpIndicator.isHealthy('smtp'),
+    ]);
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/health/indicators/database.health.indicator.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+import {
+  HealthIndicator,
+  HealthIndicatorResult,
+  HealthCheckError,
+} from '@nestjs/terminus';
+import { PrismaService } from 'src/infastructure/database/prisma.service';
+
+@Injectable()
+export class DatabaseHealthIndicator extends HealthIndicator {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
+
+  async isHealthy(key: string): Promise<HealthIndicatorResult> {
+    try {
+      await this.prisma.$queryRaw`SELECT 1`;
+      return this.getStatus(key, true);
+    } catch (error) {
+      throw new HealthCheckError(
+        'Database check failed',
+        this.getStatus(key, false, { error: (error as Error).message }),
+      );
+    }
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/health/indicators/health.module.ts
+--------------------------------------------------
+import { Module } from '@nestjs/common';
+import { TerminusModule } from '@nestjs/terminus';
+import { HealthController } from '../health.controller';
+import { HealthService } from '../health.service';
+import { DatabaseHealthIndicator } from './database.health.indicator';
+import { SmtpHealthIndicator } from './smtp.health.indicator';
+import { SmtpModule } from 'src/infastructure/smtp/smtp.module';
+import { DatabaseModule } from 'src/infastructure/database/database.module';
+
+@Module({
+  imports: [TerminusModule, SmtpModule, DatabaseModule],
+  controllers: [HealthController],
+  providers: [HealthService, DatabaseHealthIndicator, SmtpHealthIndicator],
+})
+export class HealthModule {}
+
+
+--------------------------------------------------
+FILE: ./src/health/indicators/smtp.health.indicator.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+import {
+  HealthIndicator,
+  HealthIndicatorResult,
+  HealthCheckError,
+} from '@nestjs/terminus';
+import { SmtpService } from 'src/infastructure/smtp/smtp.service';
+
+@Injectable()
+class SmtpHealthIndicator extends HealthIndicator {
+  constructor(private readonly smtpService: SmtpService) {
+    super();
+  }
+
+  async isHealthy(key: string): Promise<HealthIndicatorResult> {
+    try {
+      await this.smtpService.verify();
+      return this.getStatus(key, true);
+    } catch (error) {
+      throw new HealthCheckError(
+        'SMTP check failed',
+        this.getStatus(key, false, { error: (error as Error).message }),
+      );
+    }
+  }
+}
+
+export { SmtpHealthIndicator };
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/database/database.module.ts
+--------------------------------------------------
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { PrismaService } from './prisma.service';
+import { DatabaseStatusService } from './database-status.service';
+
+@Module({
+  imports: [ConfigModule],
+  providers: [PrismaService, DatabaseStatusService],
+  exports: [PrismaService],
+})
+export class DatabaseModule {}
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/database/database-status.service.ts
+--------------------------------------------------
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
+
+@Injectable()
+class DatabaseStatusService implements OnApplicationBootstrap {
+  private readonly logger = new Logger(DatabaseStatusService.name);
+
+  constructor(private readonly prisma: PrismaService) {}
+
+  async onApplicationBootstrap() {
+    try {
+      await this.prisma.$queryRaw`SELECT 1`;
+      this.logger.log('Database health check successful');
+    } catch (error) {
+      this.logger.error('Database health check failed', error);
+    }
+  }
+}
+export { DatabaseStatusService };
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/database/prisma.service.ts
+--------------------------------------------------
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from 'generated/prisma/client';
+
+@Injectable()
+class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
+  constructor(private readonly configService: ConfigService) {
+    const adapter = new PrismaPg({
+      connectionString: configService.getOrThrow<string>('DATABASE_URL'),
+    });
+
+    super({ adapter });
+  }
+
+  async onModuleInit(): Promise<void> {
+    await this.$connect();
+  }
+
+  async onModuleDestroy(): Promise<void> {
+    await this.$disconnect();
+  }
+}
+
+export { PrismaService };
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/smtp/smtp.module.ts
+--------------------------------------------------
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { SmtpService } from './smtp.service';
+import { SmtpStatusService } from './smtp-status.service';
+
+@Module({
+  imports: [ConfigModule],
+  providers: [SmtpService, SmtpStatusService],
+  exports: [SmtpService],
+})
+export class SmtpModule {}
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/smtp/smtp.service.ts
+--------------------------------------------------
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import nodemailer from 'nodemailer';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
+import type { SendMailOptions, Transporter } from 'nodemailer';
+
+@Injectable()
+class SmtpService implements OnModuleDestroy {
+  private readonly transporter: Transporter<SMTPTransport.SentMessageInfo>;
+
+  constructor(private readonly configService: ConfigService) {
+    const smtpOptions: SMTPTransport.Options = {
+      host: this.configService.getOrThrow<string>('smtp.host'),
+      port: this.configService.getOrThrow<number>('smtp.port'),
+      secure: this.configService.get<boolean>('smtp.secure') ?? false,
+      auth: {
+        user: this.configService.getOrThrow<string>('smtp.user'),
+        pass: this.configService.getOrThrow<string>('smtp.password'),
+      },
+    };
+
+    this.transporter = nodemailer.createTransport(smtpOptions);
+  }
+
+  async verify(): Promise<boolean> {
+    return this.transporter.verify();
+  }
+
+  async sendMail(
+    options: SendMailOptions,
+  ): Promise<SMTPTransport.SentMessageInfo> {
+    return this.transporter.sendMail({
+      from: this.configService.getOrThrow<string>('smtp.user'),
+      ...options,
+    });
+  }
+
+  onModuleDestroy(): void {
+    this.transporter.close();
+  }
+}
+export { SmtpService };
+
+
+--------------------------------------------------
+FILE: ./src/infastructure/smtp/smtp-status.service.ts
+--------------------------------------------------
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { SmtpService } from './smtp.service';
+
+@Injectable()
+export class SmtpStatusService implements OnApplicationBootstrap {
+  private readonly logger = new Logger(SmtpStatusService.name);
+
+  constructor(private readonly smtpService: SmtpService) {}
+
+  async onApplicationBootstrap(): Promise<void> {
+    try {
+      await this.smtpService.verify();
+      this.logger.log('SMTP connection successful');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.error(`SMTP connection failed: ${message}`);
+    }
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/main.ts
+--------------------------------------------------
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { CorsConfig } from './common/cors/cors.config';
+import { ConfigService } from '@nestjs/config';
+import setupApp from './bootstrap';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  const corsConfig = app.get(CorsConfig);
+  const configService = app.get(ConfigService);
+
+  app.enableCors(corsConfig.options);
+  app.setGlobalPrefix('api/v1');
+  setupApp(app);
+  await app.listen(configService.get<number>('app.port') ?? 3000, '0.0.0.0');
+}
+bootstrap();
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/dto/address.dto.ts
+--------------------------------------------------
+import { IsString, IsNotEmpty } from 'class-validator';
+
+class AddressDto {
+  @IsString()
+  @IsNotEmpty()
+  street: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  country: string;
+}
+
+export { AddressDto };
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/dto/create-person.dto.ts
+--------------------------------------------------
+import {
+  IsString,
+  IsEmail,
+  IsNotEmpty,
+  IsDateString,
+  IsArray,
+  ValidateNested,
+  MinLength,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { AddressDto } from './address.dto';
+
+class CreatePersonDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @MinLength(8)
+  password: string;
+
+  @IsDateString()
+  dateOfBirth: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AddressDto)
+  addresses: AddressDto[];
+}
+
+export { CreatePersonDto };
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/dto/query-person.dto.ts
+--------------------------------------------------
+import { IsOptional, IsString, IsInt, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class QueryPersonDto {
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  limit?: number = 10;
+}
+
+export { QueryPersonDto };
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/dto/update-person.dto.ts
+--------------------------------------------------
+import { PartialType } from '@nestjs/mapped-types';
+import { CreatePersonDto } from './create-person.dto';
+
+export class UpdatePersonDto extends PartialType(CreatePersonDto) {}
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/persons.controller.ts
+--------------------------------------------------
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+  BadRequestException,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { PersonsService } from './persons.service';
+import { CreatePersonDto } from './dto/create-person.dto';
+import { UpdatePersonDto } from './dto/update-person.dto';
+import { QueryPersonDto } from './dto/query-person.dto';
+
+@Controller('persons')
+export class PersonsController {
+  constructor(private readonly personsService: PersonsService) {}
+
+  @Post()
+  @UseInterceptors(FileInterceptor('image'))
+  async create(
+    @Body() dto: CreatePersonDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    const person = await this.personsService.create(dto, file);
+
+    return {
+      message: 'Person created successfully',
+      data: person,
+    };
+  }
+
+  @Get()
+  async findAll(@Query() query: QueryPersonDto) {
+    const result = await this.personsService.findAll(query);
+
+    return {
+      message: 'Persons fetched successfully',
+      data: result,
+    };
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const person = await this.personsService.findOne(id);
+
+    return {
+      message: 'Person fetched successfully',
+      data: person,
+    };
+  }
+
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('image'))
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdatePersonDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    const person = await this.personsService.update(id, dto, file);
+
+    return {
+      message: 'Person updated successfully',
+      data: person,
+    };
+  }
+
+  @Patch(':id/image')
+  @UseInterceptors(FileInterceptor('image'))
+  async updateImage(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Image file is required');
+    }
+
+    const person = await this.personsService.updateImage(id, file);
+
+    return {
+      message: 'Person image updated successfully',
+      data: person,
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    await this.personsService.remove(id);
+
+    return {
+      message: 'Person deleted successfully',
+      data: null,
+    };
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/persons.module.ts
+--------------------------------------------------
+import { Module } from '@nestjs/common';
+import { PersonsController } from './persons.controller';
+import { PersonsService } from './persons.service';
+import { PersonsRepository } from './persons.repository';
+import { DatabaseModule } from '../../infastructure/database/database.module';
+
+@Module({
+  imports: [DatabaseModule],
+  controllers: [PersonsController],
+  providers: [PersonsService, PersonsRepository],
+  exports: [PersonsService],
+})
+export class PersonsModule {}
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/persons.repository.ts
+--------------------------------------------------
+import { Injectable } from '@nestjs/common';
+import { QueryPersonDto } from './dto/query-person.dto';
+import { PrismaService } from 'src/infastructure/database/prisma.service';
+import { Person, Prisma } from 'generated/prisma/client';
+
+@Injectable()
+export class PersonsRepository {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: Prisma.PersonCreateInput): Promise<Person> {
+    return this.prisma.person.create({
+      data,
+    });
+  }
+
+  async findAll(query: QueryPersonDto): Promise<[Person[], number]> {
+    const page = Number(query.page ?? 1);
+    const limit = Number(query.limit ?? 10);
+    const search = query.search;
+
+    const where: Prisma.PersonWhereInput = search
+      ? {
+          name: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        }
+      : {};
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.person.findMany({
+        where,
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+
+      this.prisma.person.count({
+        where,
+      }),
+    ]);
+
+    return [data, total];
+  }
+
+  async findById(id: number): Promise<Person | null> {
+    return this.prisma.person.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async findByEmail(email: string): Promise<Person | null> {
+    return this.prisma.person.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async update(id: number, data: Prisma.PersonUpdateInput): Promise<Person> {
+    return this.prisma.person.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.prisma.person.delete({
+      where: {
+        id,
+      },
+    });
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./src/modules/persons/persons.service.ts
+--------------------------------------------------
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
+import { CreatePersonDto } from './dto/create-person.dto';
+import { UpdatePersonDto } from './dto/update-person.dto';
+import { QueryPersonDto } from './dto/query-person.dto';
+import { PersonsRepository } from './persons.repository';
+import * as bcrypt from 'bcrypt';
+import * as path from 'path';
+import * as fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
+import { Person, Prisma } from 'generated/prisma/client';
+
+const SALT_ROUNDS = 12;
+const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'persons');
+
+@Injectable()
+export class PersonsService {
+  constructor(private readonly personsRepository: PersonsRepository) {}
+
+  async create(
+    dto: CreatePersonDto,
+    file?: Express.Multer.File,
+  ): Promise<Person> {
+    const existing = await this.personsRepository.findByEmail(dto.email);
+
+    if (existing) {
+      throw new ConflictException('Email already in use');
+    }
+
+    const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
+    const image = file ? this.saveImage(file) : null;
+
+    return this.personsRepository.create({
+      name: dto.name,
+      email: dto.email,
+      password,
+      dateOfBirth: new Date(dto.dateOfBirth),
+      addresses: dto.addresses as unknown as Prisma.InputJsonValue,
+      image,
+    });
+  }
+
+  async findAll(query: QueryPersonDto): Promise<{
+    data: Person[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    const [data, total] = await this.personsRepository.findAll(query);
+
+    return {
+      data,
+      total,
+      page: Number(query.page ?? 1),
+      limit: Number(query.limit ?? 10),
+    };
+  }
+
+  async findOne(id: number): Promise<Person> {
+    const person = await this.personsRepository.findById(id);
+
+    if (!person) {
+      throw new NotFoundException(`Person ${id} not found`);
+    }
+
+    return person;
+  }
+
+  async update(
+    id: number,
+    dto: UpdatePersonDto,
+    file?: Express.Multer.File,
+  ): Promise<Person> {
+    await this.findOne(id);
+
+    const data: Prisma.PersonUpdateInput = {};
+
+    if (dto.name !== undefined) {
+      data.name = dto.name;
+    }
+
+    if (dto.email !== undefined) {
+      const existing = await this.personsRepository.findByEmail(dto.email);
+
+      if (existing && existing.id !== id) {
+        throw new ConflictException('Email already in use');
+      }
+
+      data.email = dto.email;
+    }
+
+    if (dto.addresses !== undefined) {
+      data.addresses = dto.addresses as unknown as Prisma.InputJsonValue;
+    }
+
+    if (dto.password !== undefined) {
+      data.password = await bcrypt.hash(dto.password, SALT_ROUNDS);
+    }
+
+    if (dto.dateOfBirth !== undefined) {
+      data.dateOfBirth = new Date(dto.dateOfBirth);
+    }
+
+    if (file) {
+      data.image = this.saveImage(file);
+    }
+
+    return this.personsRepository.update(id, data);
+  }
+
+  async updateImage(id: number, file: Express.Multer.File): Promise<Person> {
+    await this.findOne(id);
+
+    const image = this.saveImage(file);
+
+    return this.personsRepository.update(id, {
+      image,
+    });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.findOne(id);
+
+    await this.personsRepository.remove(id);
+  }
+
+  private saveImage(file: Express.Multer.File): string {
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR, {
+        recursive: true,
+      });
+    }
+
+    const ext = path.extname(file.originalname);
+    const filename = `${uuidv4()}${ext}`;
+    const filepath = path.join(UPLOAD_DIR, filename);
+
+    fs.writeFileSync(filepath, file.buffer);
+
+    return path.join('uploads', 'persons', filename);
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./test/app.e2e-spec.ts
+--------------------------------------------------
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
+import { App } from 'supertest/types';
+import { AppModule } from './../src/app.module';
+
+describe('AppController (e2e)', () => {
+  let app: INestApplication<App>;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('/ (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+});
+
+
+--------------------------------------------------
+FILE: ./test/jest-e2e.json
+--------------------------------------------------
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./tsconfig.build.json
+--------------------------------------------------
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+}
+
+
+--------------------------------------------------
+FILE: ./tsconfig.json
+--------------------------------------------------
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
+
+
+--------------------------------------------------
+FILE: ./uploads
+--------------------------------------------------
+

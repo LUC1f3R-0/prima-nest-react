@@ -16,6 +16,8 @@ import { Person, Prisma } from 'generated/prisma/client';
 const SALT_ROUNDS = 12;
 const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'persons');
 
+type SafePerson = Omit<Person, 'password'>;
+
 @Injectable()
 export class PersonsService {
   constructor(private readonly personsRepository: PersonsRepository) {}
@@ -23,7 +25,7 @@ export class PersonsService {
   async create(
     dto: CreatePersonDto,
     file?: Express.Multer.File,
-  ): Promise<Person> {
+  ): Promise<SafePerson> {
     const existing = await this.personsRepository.findByEmail(dto.email);
 
     if (existing) {
@@ -33,7 +35,7 @@ export class PersonsService {
     const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
     const image = file ? this.saveImage(file) : null;
 
-    return this.personsRepository.create({
+    const person = await this.personsRepository.create({
       name: dto.name,
       email: dto.email,
       password,
@@ -41,10 +43,12 @@ export class PersonsService {
       addresses: dto.addresses as unknown as Prisma.InputJsonValue,
       image,
     });
+
+    return this.toSafePerson(person);
   }
 
   async findAll(query: QueryPersonDto): Promise<{
-    data: Person[];
+    data: SafePerson[];
     total: number;
     page: number;
     limit: number;
@@ -52,29 +56,25 @@ export class PersonsService {
     const [data, total] = await this.personsRepository.findAll(query);
 
     return {
-      data,
+      data: data.map((person) => this.toSafePerson(person)),
       total,
       page: Number(query.page ?? 1),
       limit: Number(query.limit ?? 10),
     };
   }
 
-  async findOne(id: number): Promise<Person> {
-    const person = await this.personsRepository.findById(id);
+  async findOne(id: number): Promise<SafePerson> {
+    const person = await this.findOneOrThrow(id);
 
-    if (!person) {
-      throw new NotFoundException(`Person ${id} not found`);
-    }
-
-    return person;
+    return this.toSafePerson(person);
   }
 
   async update(
     id: number,
     dto: UpdatePersonDto,
     file?: Express.Multer.File,
-  ): Promise<Person> {
-    await this.findOne(id);
+  ): Promise<SafePerson> {
+    await this.findOneOrThrow(id);
 
     const data: Prisma.PersonUpdateInput = {};
 
@@ -108,23 +108,46 @@ export class PersonsService {
       data.image = this.saveImage(file);
     }
 
-    return this.personsRepository.update(id, data);
+    const person = await this.personsRepository.update(id, data);
+
+    return this.toSafePerson(person);
   }
 
-  async updateImage(id: number, file: Express.Multer.File): Promise<Person> {
-    await this.findOne(id);
+  async updateImage(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<SafePerson> {
+    await this.findOneOrThrow(id);
 
     const image = this.saveImage(file);
 
-    return this.personsRepository.update(id, {
+    const person = await this.personsRepository.update(id, {
       image,
     });
+
+    return this.toSafePerson(person);
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id);
+    await this.findOneOrThrow(id);
 
     await this.personsRepository.remove(id);
+  }
+
+  private async findOneOrThrow(id: number): Promise<Person> {
+    const person = await this.personsRepository.findById(id);
+
+    if (!person) {
+      throw new NotFoundException(`Person ${id} not found`);
+    }
+
+    return person;
+  }
+
+  private toSafePerson(person: Person): SafePerson {
+    const { password, ...safePerson } = person;
+
+    return safePerson;
   }
 
   private saveImage(file: Express.Multer.File): string {

@@ -1,3 +1,0 @@
-{"success":true,"data":{"id":"afeaa6ea-a8b5-411c-9517-1b0463440723","name":"Test User","email":"test-1779613961@example.com","password":"$2b$12$rRNAs9mxnA28K8hEq7b5P.VVuaf6udbHnrsVQK8I8PvBK1r7u33Ou","dateOfBirth":"2000-01-01T00:00:00.000Z","addresses":[{"city":"Test City","street":"Test St","country":"Sri Lanka"}],"image":null,"createdAt":"2026-05-24T09:12:41.958Z","updatedAt":"2026-05-24T09:12:41.958Z"},"requestId":"f3a4af97-34d6-4334-88b8-dca3b15edd96","timestamp":"2026-05-24T09:12:41.963Z"}
-HTTP Status: 201
-Time: 0.195908s

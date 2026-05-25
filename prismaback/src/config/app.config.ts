@@ -3,7 +3,8 @@ import { registerAs } from '@nestjs/config';
 export const appConfig = registerAs('app', () => ({
   port: parseInt(process.env.PORT ?? '3000', 10),
   cors: {
-    origins: process.env.CORS_ORIGINS?.split(',').map((o) => o.trim()) ?? [],
+    origins:
+      process.env.CORS_ORIGINS?.split(',').map((origin) => origin.trim()) ?? [],
   },
 }));
 
@@ -20,7 +21,7 @@ export const dataConfig = registerAs('database', () => ({
 
 export const smtpConfig = registerAs('smtp', () => ({
   host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
+  port: parseInt(process.env.SMTP_PORT ?? '587', 10),
   secure: process.env.SMTP_SECURE === 'true',
   user: process.env.SMTP_USER,
   password: process.env.SMTP_PASS,

@@ -1,11 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import {
-  HealthCheck,
-  HealthCheckService,
-  PrismaHealthIndicator,
-} from '@nestjs/terminus';
+import { HealthCheck } from '@nestjs/terminus';
 import { HealthService } from './health.service';
+import { SkipHeaderValidation } from 'src/common/decorators/skip-header-validation.decorator';
 
+@SkipHeaderValidation()
 @Controller('health')
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
