@@ -19,7 +19,7 @@ import { UpdatePersonDto } from './dto/update-person.dto';
 import { QueryPersonDto } from './dto/query-person.dto';
 
 @Controller('persons')
-export class PersonsController {
+class PersonsController {
   constructor(private readonly personsService: PersonsService) {}
 
   @Post()
@@ -99,3 +99,4 @@ export class PersonsController {
     };
   }
 }
+export { PersonsController };

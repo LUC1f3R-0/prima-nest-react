@@ -2,7 +2,7 @@ import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { SmtpService } from './smtp.service';
 
 @Injectable()
-export class SmtpStatusService implements OnApplicationBootstrap {
+class SmtpStatusService implements OnApplicationBootstrap {
   private readonly logger = new Logger(SmtpStatusService.name);
 
   constructor(private readonly smtpService: SmtpService) {}
@@ -17,3 +17,4 @@ export class SmtpStatusService implements OnApplicationBootstrap {
     }
   }
 }
+export { SmtpStatusService };

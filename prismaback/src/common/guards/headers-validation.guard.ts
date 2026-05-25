@@ -12,7 +12,7 @@ import { SKIP_HEADER_VALIDATION } from '../decorators/skip-header-validation.dec
 const MUTATING_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
 @Injectable()
-export class HeadersValidationGuard implements CanActivate {
+class HeadersValidationGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -49,3 +49,4 @@ export class HeadersValidationGuard implements CanActivate {
     return true;
   }
 }
+export { HeadersValidationGuard };

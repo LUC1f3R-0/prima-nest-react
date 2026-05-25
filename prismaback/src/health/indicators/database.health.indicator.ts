@@ -7,7 +7,7 @@ import {
 import { PrismaService } from 'src/infastructure/database/prisma.service';
 
 @Injectable()
-export class DatabaseHealthIndicator extends HealthIndicator {
+class DatabaseHealthIndicator extends HealthIndicator {
   constructor(private readonly prisma: PrismaService) {
     super();
   }
@@ -24,3 +24,4 @@ export class DatabaseHealthIndicator extends HealthIndicator {
     }
   }
 }
+export { DatabaseHealthIndicator };

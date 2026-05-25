@@ -4,7 +4,7 @@ import { PrismaService } from 'src/infastructure/database/prisma.service';
 import { Person, Prisma } from 'generated/prisma/client';
 
 @Injectable()
-export class PersonsRepository {
+class PersonsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: Prisma.PersonCreateInput): Promise<Person> {
@@ -78,3 +78,4 @@ export class PersonsRepository {
     });
   }
 }
+export { PersonsRepository };

@@ -5,7 +5,7 @@ import { SkipHeaderValidation } from 'src/common/decorators/skip-header-validati
 
 @SkipHeaderValidation()
 @Controller('health')
-export class HealthController {
+class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
   @Get()
@@ -14,3 +14,4 @@ export class HealthController {
     return this.healthService.check();
   }
 }
+export { HealthController };

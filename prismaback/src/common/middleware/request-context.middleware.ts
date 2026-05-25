@@ -1,30 +1,20 @@
-import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 
 @Injectable()
-export class RequestContextMiddleware implements NestMiddleware {
-  private readonly logger = new Logger(RequestContextMiddleware.name);
-
+class RequestContextMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    if (!req.headers['x-request-id']) {
+    const requestId = req.headers['x-request-id'];
+
+    if (typeof requestId !== 'string') {
       req.headers['x-request-id'] = randomUUID();
     }
 
-    res.setHeader('X-Request-Id', req.headers['x-request-id']);
-
-    const safeHeaders = { ...req.headers };
-
-    delete safeHeaders.authorization;
-    delete safeHeaders.cookie;
-    delete safeHeaders['x-api-key'];
-
-    this.logger.debug({
-      method: req.method,
-      url: req.originalUrl,
-      headers: safeHeaders,
-    });
+    res.setHeader('X-Request-Id', req.headers['x-request-id'] as string);
 
     next();
   }
 }
+
+export { RequestContextMiddleware };

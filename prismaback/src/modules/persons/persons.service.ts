@@ -19,7 +19,7 @@ const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'persons');
 type SafePerson = Omit<Person, 'password'>;
 
 @Injectable()
-export class PersonsService {
+class PersonsService {
   constructor(private readonly personsRepository: PersonsRepository) {}
 
   async create(
@@ -166,3 +166,4 @@ export class PersonsService {
     return path.join('uploads', 'persons', filename);
   }
 }
+export { PersonsService };

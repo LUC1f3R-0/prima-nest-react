@@ -4,7 +4,7 @@ import { DatabaseHealthIndicator } from './indicators/database.health.indicator'
 import { SmtpHealthIndicator } from './indicators/smtp.health.indicator';
 
 @Injectable()
-export class HealthService {
+class HealthService {
   constructor(
     private readonly health: HealthCheckService,
     private readonly databaseIndicator: DatabaseHealthIndicator,
@@ -18,3 +18,4 @@ export class HealthService {
     ]);
   }
 }
+export { HealthService };
