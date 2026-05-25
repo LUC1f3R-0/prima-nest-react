@@ -1,8 +1,6 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
+bootstrapApplication(App, appConfig)
+  .catch((err) => console.error(err));
