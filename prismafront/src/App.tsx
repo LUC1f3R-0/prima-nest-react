@@ -164,11 +164,20 @@ const App = () => {
       </form>
 
       {persons.map((person) => (
-        // <div key={person.id}>
-        //   <h3>{person.name}</h3>
-        //   <p>{person.email}</p>
-        // </div>
-        console.log(persons)
+        <div key={person.id}>
+          <h3>{person.name}</h3>
+          <p>{person.email}</p>
+          <p>{new Date(person.dateOfBirth).toLocaleDateString()}</p>
+
+          {person.addresses.map((address, index) => (
+            <div key={`${person.id}-${index}`}>
+              <strong>Address {index + 1}</strong>
+              <p>{address.street}</p>
+              <p>{address.city}</p>
+              <p>{address.country}</p>
+            </div>
+          ))}
+        </div>
       ))}
     </>
   );
