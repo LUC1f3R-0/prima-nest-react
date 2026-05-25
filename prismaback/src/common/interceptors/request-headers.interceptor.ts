@@ -9,7 +9,7 @@ import { randomUUID } from 'crypto';
 import { Request, Response } from 'express';
 
 @Injectable()
-export class RequestHeadersInterceptor implements NestInterceptor {
+class RequestHeadersInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
@@ -33,3 +33,5 @@ export class RequestHeadersInterceptor implements NestInterceptor {
     return next.handle();
   }
 }
+
+export { RequestHeadersInterceptor };
