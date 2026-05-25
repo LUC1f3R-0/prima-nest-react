@@ -1,42 +1,76 @@
-import { type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import AxiosInstance from "./services/apis";
+import type { Person } from "./types/person.types";
 
 const App = () => {
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [persons, setPersons] = useState<Person[]>([]);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+  const getRequests = async () => {
+    try {
+      const response = await AxiosInstance.get("/persons");
 
-    await postSubmit(formData);
+      const { success, message, data } = response.data;
+
+      console.log("GET success?", success);
+      console.log("GET message?", message);
+      console.log("GET data:", data);
+
+      setPersons(data.data);
+    } catch (error: any) {
+      console.log("GET error:", error.response?.data ?? error.message);
+
+      toast.error(
+        error.response?.data?.message ?? "Failed to fetch persons"
+      );
+    } finally {
+      console.log("GET request ended");
+    }
   };
 
   const postSubmit = async (formData: FormData) => {
     try {
       const response = await AxiosInstance.post("/persons", formData);
 
-      const { success, message } = response.data;
+      const { success, message, data } = response.data;
 
-      console.log(success);
-      console.log(message);
+      console.log("POST success?", success);
+      console.log("POST message?", message);
+      console.log("POST data:", data);
 
-      toast.success(message ?? "Complete");
+      toast.success(message ?? "Person created successfully");
+
+      return response.data;
     } catch (error: any) {
-      const success = error.response?.data?.success;
-      const message =
-        error.response?.data?.message ??
-        error.message ??
-        "Something went wrong";
+      console.log("Full error:", error);
+      console.log("Error response:", error.response);
+      console.log("Error data:", error.response?.data);
 
-      console.log(success);
-      console.log(message);
+      toast.error(error.response?.data?.message ?? "Something went wrong");
 
-      toast.error(message);
+      return error.response?.data;
     }
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const result = await postSubmit(formData);
+
+    if (result?.success) {
+      await getRequests();
+      form.reset();
+    }
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
 
   return (
     <>
@@ -128,6 +162,14 @@ const App = () => {
 
         <button type="submit">Submit</button>
       </form>
+
+      {persons.map((person) => (
+        // <div key={person.id}>
+        //   <h3>{person.name}</h3>
+        //   <p>{person.email}</p>
+        // </div>
+        console.log(persons)
+      ))}
     </>
   );
 };
