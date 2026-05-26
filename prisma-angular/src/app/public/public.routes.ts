@@ -11,7 +11,7 @@ export const PUBLIC_ROUTES: Routes = [
   },
   {
     path: 'contact',
-    loadComponent: () => import('./home/contact/contact.component').then((m) => m.ContactComponent),
+    loadComponent: () => import('./contact/contact.component').then((m) => m.ContactComponent),
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

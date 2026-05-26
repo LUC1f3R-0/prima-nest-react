@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  constructor(private readonly personService: PersonService) {}
+
   ngOnInit(): void {
-    console.log('fgreyuitger');
+    console.log();
+    this.personService.getAll().subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    });
   }
 
   clicked() {
