@@ -1,0 +1,29 @@
+.company-page {
+  padding: 24px;
+}
+
+.company-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.company-nav button {
+  padding: 10px 18px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.company-nav button.active {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+.company-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
