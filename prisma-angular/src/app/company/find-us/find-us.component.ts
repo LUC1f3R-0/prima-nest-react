@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './find-us.component.html',
   styleUrl: './find-us.component.css',
 })
-export class FindUsComponent {
-
-}
+export class FindUsComponent {}
